@@ -1,11 +1,12 @@
 import setuptools
+import nnfs
 
-with open("README.md", "r", encoding='utf-8') as f:
+with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setuptools.setup(
     name="nnfs",
-    version="0.1.0",
+    version=nnfs.__version__,
     author="Harrison Kinsley",
     author_email="harrison@pythonprogramming.net",
     description="Package related to the Neural Networks from Scratch in Python book",
@@ -34,4 +35,9 @@ setuptools.setup(
     keywords='nnfs neural network networks from scratch in python',
     python_requires='>=3.7',
     install_requires=['numpy'],
+    entry_points={
+        "console_scripts": [
+            "nnfs = nnfs.console.nnfs:main",
+        ]
+    }
 )
