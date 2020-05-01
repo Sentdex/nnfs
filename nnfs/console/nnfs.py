@@ -12,14 +12,14 @@ Basic usage:
 nnfs command [parameter1 [parameter2]]
 
 Detailed usage:
-nnfs info | code video_part destination
+nnfs info | code video_part [destination]
 
 Commands:
   info    Prints information about the book
   code    Creates a file containing the code of given video part
           in given location. Location is optional, example:
-          nnfs 2 nnfs/p02.py
-          will create a file p02.py in a folder nnfs containing
+          nnfs code 2 nnfs/p02.py
+          will create a file p02.py in a nnfs folder containing
           the code of part 2 of video tutorial
     ''')
 
@@ -34,7 +34,7 @@ def info():
   ---
 
   This package contains the code and supplementary material
-  as well as lesson code related to the book and video serie.
+  as well as lesson code related to the book and video series.
 
     ''')
 
