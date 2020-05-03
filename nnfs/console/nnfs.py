@@ -42,7 +42,7 @@ def info():
 def code(video_part, path='/.'):
 
     final_path = path.lstrip("/").lstrip("\\")
-    final_path = os.path.realpath(f'{os.getcwd()}/{final_path}')
+    final_path = os.path.realpath(os.getcwd() + '/' + final_path)
     if path.rstrip('.').endswith('/') or path.rstrip('.').endswith('\\'):
         final_path += '/'
 
@@ -54,7 +54,7 @@ def code(video_part, path='/.'):
 
     code_folder = os.path.dirname(nnfs_video_tutorial_code.__file__)
 
-    parts = [int(file.split('.')[0]) for file in os.listdir(code_folder) if os.path.isfile(f'{code_folder}/{file}') and not file.startswith('_')]
+    parts = [int(file.split('.')[0]) for file in os.listdir(code_folder) if os.path.isfile(code_folder + '/' + file) and not file.startswith('_')]
     if int(video_part) > max(parts):
         print('Video part does not exist')
         return
@@ -62,17 +62,17 @@ def code(video_part, path='/.'):
     try:
         os.makedirs(final_path if path.rstrip('.').endswith('/') or path.rstrip('.').endswith('\\') else os.path.dirname(final_path), exist_ok=True)
     except:
-        print(f'Could not create one on more directories in a treefile {final_path} - permission issue?')
+        print('Could not create one on more directories in a treefile ' + final_path + ' - permission issue?')
 
     if path.rstrip('.').endswith('/') or path.rstrip('.').endswith('\\'):
-        final_path += f'p{int(video_part):03d}.py'
+        final_path += 'p{:03d}.py'.format(int(video_part))
 
     try:
-        shutil.copyfile(f'{code_folder}/{int(video_part):03d}.py', final_path)
+        shutil.copyfile(code_folder + '/{:03d}.py'.format(int(video_part)), final_path)
     except:
-        print(f'Could not create file {final_path} - permission issue?')
+        print('Could not create file ' + final_path + 'permission issue?')
 
-    print(f'Tutorial code for part {video_part} saved as {final_path}')
+    print('Tutorial code for part ' + video_part + ' saved as ' + final_path)
 
 
 def main():
