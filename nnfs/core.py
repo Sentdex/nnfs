@@ -3,7 +3,7 @@ import inspect
 
 
 # Initializes NNFS
-def init(dot_precision_woraround=True, default_dtype='float32', random_seed=0):
+def init(dot_precision_workaround=True, default_dtype='float32', random_seed=0):
 
     # Numpy methods to be replaced for a workaround
     methods_to_enclose = [
@@ -15,7 +15,7 @@ def init(dot_precision_woraround=True, default_dtype='float32', random_seed=0):
     # np.dot() is not consistent between machines
     # This workaround raises consistency
     # we make computations using float64, but return float32 data
-    if dot_precision_woraround:
+    if dot_precision_workaround:
         orig_dot = np.dot
         def dot(*args, **kwargs):
             return orig_dot(*[a.astype('float64') for a in args], **kwargs).astype('float32')
