@@ -26,6 +26,12 @@ setuptools.setup(
         "Intended Audience :: Education",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.1",
+        "Programming Language :: Python :: 3.2",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
@@ -33,7 +39,7 @@ setuptools.setup(
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
     keywords='nnfs neural network networks from scratch in python',
-    python_requires='>=3.7',
+    python_requires='>=3',
     install_requires=['numpy'],
     entry_points={
         "console_scripts": [
