@@ -7,8 +7,9 @@ def init(dot_precision_workaround=True, default_dtype='float32', random_seed=0):
 
     # Numpy methods to be replaced for a workaround
     methods_to_enclose = [
-        [np, 'zeros', False],
-        [np.random, 'randn', True],
+        [np, 'zeros', False, 1],
+        [np.random, 'randn', True, None],
+        [np, 'eye', False, 1],
     ]
 
     # https://github.com/numpy/numpy/issues/15591
@@ -21,7 +22,7 @@ def init(dot_precision_workaround=True, default_dtype='float32', random_seed=0):
             return orig_dot(*[a.astype('float64') for a in args], **kwargs).astype('float32')
         np.dot = dot
     else:
-        methods_to_enclose.append([np, 'dot', False])
+        methods_to_enclose.append([np, 'dot', True, None])
 
     # https://github.com/numpy/numpy/issues/6860
     # It is not possible to set default datatype with numpy
@@ -40,18 +41,18 @@ def init(dot_precision_workaround=True, default_dtype='float32', random_seed=0):
 def enclose(method, default_dtype):
 
     # Save a handler to original method
-    method.append(getattr(*method))
+    method.append(getattr(*method[:2]))
     def enclosed_method(*args, **kwargs):
 
         # If flag is True - use .astype()
         if method[2]:
-            return method[3](*args, **kwargs).astype(default_dtype)
+            return method[4](*args, **kwargs).astype(default_dtype)
 
         # Else pass dtype in kwargs
         else:
-            if 'dtype' not in kwargs:
+            if len(args) <= method[3] and 'dtype' not in kwargs:
                 kwargs['dtype'] = default_dtype
-            return method[3](*args, **kwargs)
+            return method[4](*args, **kwargs)
 
     # Replace numpy method with enclosed one
     setattr(*method[:2], enclosed_method)
