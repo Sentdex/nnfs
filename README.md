@@ -5,7 +5,7 @@ For use in conjunction with the book (https://nnfs.io) and the video series on Y
 
 At the moment, the main use is for the dataset generator:
 ```python
-from nnfs.datasets import spiral_data_generator
+from nnfs.datasets import spiral_data
 ```
  
  
